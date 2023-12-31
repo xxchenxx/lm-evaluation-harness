@@ -77,6 +77,7 @@ def parse_eval_args() -> argparse.Namespace:
         metavar="DIR|DIR/file.json",
         help="The path to the output file where the result metrics will be saved. If the path is a directory and log_samples is true, the results will be saved in the directory. Else the parent directory will be used.",
     )
+    
     parser.add_argument(
         "--limit",
         "-L",
@@ -143,6 +144,13 @@ def parse_eval_args() -> argparse.Namespace:
         metavar="CRITICAL|ERROR|WARNING|INFO|DEBUG",
         help="Controls the reported logging error level. Set to DEBUG when testing + adding new task configurations for comprehensive log output.",
     )
+    
+    parser.add_argument(
+        "--checkpoint_path",
+        default=None,
+        type=str,
+    )
+    
     return parser.parse_args()
 
 
@@ -243,6 +251,7 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
         write_out=args.write_out,
         log_samples=args.log_samples,
         gen_kwargs=args.gen_kwargs,
+        checkpoint_path=args.checkpoint_path
     )
 
     if results is not None:

@@ -38,6 +38,7 @@ def simple_evaluate(
     write_out: bool = False,
     log_samples: bool = True,
     gen_kwargs: str = None,
+    checkpoint_path:str = None
 ):
     """Instantiate and evaluate a model on a list of tasks.
 
@@ -106,6 +107,9 @@ def simple_evaluate(
     else:
         assert isinstance(model, lm_eval.api.model.LM)
         lm = model
+
+    if checkpoint_path is not None:
+        lm.load_state_dict(torch.load(checkpoint_path))
 
     if use_cache is not None:
         print(f"Using cache at {use_cache + '_rank' + str(lm.rank) + '.db'}")
