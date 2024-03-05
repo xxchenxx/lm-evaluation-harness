@@ -109,7 +109,7 @@ def simple_evaluate(
         lm = model
 
     if checkpoint_path is not None:
-        lm.model.load_state_dict(torch.load(checkpoint_path))
+        lm.model.load_state_dict(torch.load(checkpoint_path, map_location='cpu'))
 
     if use_cache is not None:
         print(f"Using cache at {use_cache + '_rank' + str(lm.rank) + '.db'}")
